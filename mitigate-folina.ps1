@@ -20,7 +20,13 @@ function log([String]$message, [String]$file, [int]$type=0){
     1=Warning
     2=Error
     3=<empty>
-    #>        
+    #>
+    # Create Logdirectory if it doesn't exist yet
+    $path=Split-Path -Path $file
+    if (!(Test-Path -Path $path)){
+        New-Item -ItemType Directory -Path $path -Force
+    }
+
     $typemsg="(INFO) "
     if ($type -eq 1){
         $typemsg="(WARNING) "
